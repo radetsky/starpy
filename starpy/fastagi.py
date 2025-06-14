@@ -166,7 +166,7 @@ class FastAGIProtocol(basic.LineOnlyReceiver):
         """(Internal) Check for a failure-code, raise error if == result"""
         # result code may have trailing information...
         try:
-            resultInt, line = result.split(' ', 1)
+            resultInt, line = result.split(b' ', 1)
         except ValueError as err:
             resultInt = result
         if resultInt.strip() == failure:
