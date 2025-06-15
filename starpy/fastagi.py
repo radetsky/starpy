@@ -429,7 +429,7 @@ class FastAGIProtocol(basic.LineOnlyReceiver):
         """
         command = '''EXEC "%s"''' % (application)
         if options:
-            if kwargs.pop('comma_delimiter', False) is True:
+            if kwargs.pop('comma_delimiter', True) is True:
                 delimiter = ","
             else:
                 delimiter = "|"
