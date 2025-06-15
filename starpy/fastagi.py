@@ -180,9 +180,11 @@ class FastAGIProtocol(basic.LineOnlyReceiver):
         except ValueError as err:
             raise error.AGICommandFailure(FAILURE_CODE, result)
 
-    def secondResultItem(self, result):
-        """(Internal) Retrieve the second item on the result-line"""
-        return result.split(' ', 1)[1]
+    def secondResultItem(self, result: bytes) -> str:
+        """(Internal) Retrieve the second item on the result-line, or b"" if missing."""
+        line = result.decode('utf-8')
+        parts = line.split(' ', 1)
+        return parts[1] if len(parts) > 1 else "''"
 
     def resultPlusTimeoutFlag(self, resultLine):
         """(Internal) Result followed by optional flag declaring timeout"""
